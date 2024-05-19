@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">QrCodeReader</string>
+    <string name="create_qr_btn">Создать</string>
+    <string name="scan_qr_btn">Сканировать</string>
+    <string name="qr_list_title">Список QR-кодов</string>
+    <string name="qr_create_title">Создание QR-кода</string>
+    <string name="back">Назад</string>
+    <string name="save">Сохранить</string>
+</resources>
