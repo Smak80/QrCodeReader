@@ -17,12 +17,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -48,6 +50,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import ru.smak.qrcodereader.database.QrInfo
 import ru.smak.qrcodereader.navigation.FabButton
 import ru.smak.qrcodereader.navigation.Page
 import ru.smak.qrcodereader.ui.theme.QrCodeReaderTheme
@@ -116,7 +119,10 @@ class MainActivity : ComponentActivity() {
                         if (navPosition?.destination?.route == Page.MAIN.name)
                         FabsRow(navCtrl) { fabButton ->
                             when(fabButton){
-                                FabButton.CREATE -> navCtrl.navigate(Page.CREATE.name)
+                                FabButton.CREATE -> {
+                                    cvm.init()
+                                    navCtrl.navigate(Page.CREATE.name)
+                                }
                                 FabButton.SCAN -> {
                                     lvm.scanQr()
                                 }
@@ -216,11 +222,11 @@ fun MainPage(
     ) {
         items(viewModel.texts){
             QrCard(
-                text = it,
+                qrInfo = it,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                img = viewModel.createQr(it)
+                img = viewModel.createQr(it.text)
             )
         }
     }
@@ -228,29 +234,31 @@ fun MainPage(
 
 @Composable
 fun QrCard(
-    text: String,
+    qrInfo: QrInfo,
     modifier: Modifier = Modifier,
     img: ImageBitmap? = null,
 ){
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
-    ) {
-        BoxWithConstraints {
-            val width = this.maxWidth - 64.dp
-            Text(
-                text,
-                modifier = Modifier.width(width),
-                fontSize = 14.sp
+    ElevatedCard(modifier = modifier,) {
+        Row(
+            modifier = Modifier.padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            BoxWithConstraints {
+                val width = this.maxWidth - 64.dp
+                Text(
+                    qrInfo.text,
+                    modifier = Modifier.width(width),
+                    fontSize = 14.sp
+                )
+            }
+            QrImage(
+                img,
+                Modifier
+                    .height(64.dp)
+                    .aspectRatio(1f, true)
             )
         }
-        QrImage(
-            img,
-            Modifier
-                .height(64.dp)
-                .aspectRatio(1f, true)
-        )
     }
 }
 
@@ -258,7 +266,7 @@ fun QrCard(
 @Composable
 fun QrCardPreview(){
     QrCard(
-        "Some Text to show lkjfh lkdjh lskjhj dlkjh sdsldkjvbsbdvbsdlkfvhsdldkvhsdlkfjhsdflhsdlfkgkhsdngcposeserignewpeorvhjhjndsdilvhnsdlkjsdn nflv kskjdjhv vlskddkghsd;dlkjknsd;dfjnsd;lgkks sd;dflkv ",
+        QrInfo(text = "Some Text to show lkjfh lkdjh lskjhj dlkjh sdsldkjvbsbdvbsdlkfvhsdldkvhsdlkfjhsdflhsdlfkgkhsdngcposeserignewpeorvhjhjndsdilvhnsdlkjsdn nflv kskjdjhv vlskddkghsd;dlkjknsd;dfjnsd;lgkks sd;dflkv "),
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()

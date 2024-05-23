@@ -15,6 +15,10 @@ class QrCreateViewModel : ViewModel() {
     var qrText by mutableStateOf("")
     var qrImage: ImageBitmap? by mutableStateOf(null)
 
+    fun init(){
+        qrText = ""
+    }
+
     fun updateText(value: String) {
         qrText = value
         qrImage = qrCreator.create(qrText)?.asImageBitmap()
