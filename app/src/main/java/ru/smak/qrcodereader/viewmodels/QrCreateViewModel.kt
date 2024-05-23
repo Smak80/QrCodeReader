@@ -1,4 +1,4 @@
-package ru.smak.qrcodereader
+package ru.smak.qrcodereader.viewmodels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

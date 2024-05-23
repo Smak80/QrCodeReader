@@ -32,7 +32,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -52,6 +51,8 @@ import androidx.navigation.compose.rememberNavController
 import ru.smak.qrcodereader.navigation.FabButton
 import ru.smak.qrcodereader.navigation.Page
 import ru.smak.qrcodereader.ui.theme.QrCodeReaderTheme
+import ru.smak.qrcodereader.viewmodels.QrCreateViewModel
+import ru.smak.qrcodereader.viewmodels.QrListViewModel
 
 class MainActivity : ComponentActivity() {
 

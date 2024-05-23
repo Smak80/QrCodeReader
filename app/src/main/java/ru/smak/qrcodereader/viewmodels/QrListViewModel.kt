@@ -1,13 +1,11 @@
-package ru.smak.qrcodereader
+package ru.smak.qrcodereader.viewmodels
 
 import android.app.Application
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.AndroidViewModel
+import ru.smak.qrcodereader.QrCodeApp
 import ru.smak.qrcodereader.qr.QrCreator
 import ru.smak.qrcodereader.qr.QrScanner
 
